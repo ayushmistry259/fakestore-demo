@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake Store API Demo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 20px;
+    }
+    .product {
+      width: 200px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    h4 {
+      font-size: 16px;
+      margin: 10px 0 5px;
+    }
+    p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="products">Loading...</div>
+
+  <script>
+    fetch('https://fakestoreapi.com/products?limit=6')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('products');
+        container.innerHTML = '';
+        data.forEach(product => {
+          container.innerHTML += `
+            <div class="product">
+              <img src="${product.image}" alt="${product.title}">
+              <h4>${product.title}</h4>
+              <p>$${product.price}</p>
+            </div>
+          `;
+        });
+      });
+  </script>
+</body>
+</html>
